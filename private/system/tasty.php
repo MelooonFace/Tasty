@@ -46,7 +46,13 @@ $classes = array(
 // Loop through all the core class'
 foreach($classes as $info)
 {
-	Loader::load($info[0], $info[1]); // Load the file into the loader
+	$class = $info[1];
+	
+	Loader::load($info[0], $class); // Load the file into the loader
+	
+	// Initiate the class (if there is one)
+	if( method_exists($class, 'init') )
+		$class::init();
 }
 
 unset($classes); // Get rid of that...
